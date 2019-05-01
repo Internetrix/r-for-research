@@ -1,0 +1,647 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>R for Research</title>
+    <meta charset="utf-8">
+    <meta name="author" content="Dean Marchiori" />
+    <link href="libs/remark-css-0.0.1/default.css" rel="stylesheet" />
+    <link href="libs/remark-css-0.0.1/default-fonts.css" rel="stylesheet" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# R for Research
+## Essential Tools for Researchers
+### Dean Marchiori
+### 2019/04/30 (updated: 2019-04-30)
+
+---
+
+
+class: center, middle
+
+
+
+&lt;style type="text/css"&gt;
+pre {
+  max-width: 100%;
+  overflow-x: scroll;
+}
+
+.left-code {
+  color: #777;
+  width: 38%;
+  height: 92%;
+  float: left;
+  font-size: 70% 
+}
+.right-plot {
+  width: 60%;
+  float: right;
+  padding-left: 1%;
+}
+
+.remark-code { font-family: 'Source Code Pro', 'Lucida Console', Monaco, monospace;
+                                    font-size: 70%;
+}
+
+&lt;/style&gt;
+
+# Key principles
+
+`shareable -&gt; reproducible -&gt; publishable`
+
+---
+class: inverse, center, middle
+
+# Tool Box
+
+---
+background-image: url("img/R.png")
+
+# R?
+
+The R programming language is a popular and open-source tool for data analysis and
+statistical computing.  
+
+https://www.r-project.org/  
+
+---
+class: inverse, center, middle
+
+# Getting Data   
+
+R packages to get data and access API's
+
+---
+
+background-image: url('img/bomrang.png')  
+background-position: 90% 8%  
+background-size: 100px  
+
+# bomrang  
+
+### Australian Government Bureau of Meteorology (BOM) Data Client.   
+
+Provides functions to interface with Australian Government Bureau of Meteorology (BOM) data. 
+
+Install from CRAN:   
+
+
+```r
+install.packages("bomrang")
+```
+
+---
+
+background-image: url('img/bomrang.png')  
+background-position: 90% 8%  
+background-size: 100px  
+
+# bomrang demo   
+
+Get current forecast for Alice Springs
+
+
+```r
+library(bomrang)
+library(dplyr)
+```
+
+```
+## 
+## Attaching package: 'dplyr'
+```
+
+```
+## The following objects are masked from 'package:stats':
+## 
+##     filter, lag
+```
+
+```
+## The following objects are masked from 'package:base':
+## 
+##     intersect, setdiff, setequal, union
+```
+
+```r
+weather &lt;- bomrang::get_precis_forecast(state = "NT") 
+
+weather %&gt;% 
+  filter(town == "Alice Springs") %&gt;% 
+  select(index, town, precis) 
+```
+
+```
+##   index          town           precis
+## 1     0 Alice Springs Possible shower.
+## 2     1 Alice Springs    Mostly sunny.
+## 3     2 Alice Springs   Partly cloudy.
+## 4     3 Alice Springs   Partly cloudy.
+## 5     4 Alice Springs           Sunny.
+## 6     5 Alice Springs           Sunny.
+## 7     6 Alice Springs           Sunny.
+## 8     7 Alice Springs           Sunny.
+```
+
+
+---
+
+class: inverse, center, middle  
+
+# Analysing Data  
+faster and more interpretable EDA    
+
+---
+
+
+background-image: url('img/skimr.png')   
+background-position: 90% 6%   
+background-size: 100px    
+
+# skimr  
+
+
+
+skimr provides a frictionless approach to summary statistics which conforms to the principle of least surprise, displaying summary statistics the user can skim quickly to understand their data.  
+
+Install the latest development version:   
+
+
+```r
+devtools::install_github("ropensci/skimr")
+```
+
+
+---
+
+background-image: url('img/skimr.png')   
+background-position: 90% 6%   
+background-size: 100px    
+
+# skimr demo      
+
+
+
+
+
+```r
+library(skimr)
+```
+
+```
+## 
+## Attaching package: 'skimr'
+```
+
+```
+## The following object is masked from 'package:stats':
+## 
+##     filter
+```
+
+```r
+skimr::skim(iris)
+```
+
+```
+## Skim summary statistics
+##  n obs: 150 
+##  n variables: 5 
+## 
+## ── Variable type:factor ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+##  variable missing complete   n n_unique                       top_counts ordered
+##   Species       0      150 150        3 set: 50, ver: 50, vir: 50, NA: 0   FALSE
+## 
+## ── Variable type:numeric ───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+##      variable missing complete   n mean   sd  p0 p25  p50 p75 p100     hist
+##  Petal.Length       0      150 150 3.76 1.77 1   1.6 4.35 5.1  6.9 ▇▁▁▂▅▅▃▁
+##   Petal.Width       0      150 150 1.2  0.76 0.1 0.3 1.3  1.8  2.5 ▇▁▁▅▃▃▂▂
+##  Sepal.Length       0      150 150 5.84 0.83 4.3 5.1 5.8  6.4  7.9 ▂▇▅▇▆▅▂▂
+##   Sepal.Width       0      150 150 3.06 0.44 2   2.8 3    3.3  4.4 ▁▂▅▇▃▂▁▁
+```
+
+
+---
+background-image: url('img/tidyverse.png')   
+background-position: 90% 6%   
+background-size: 100px  
+
+# The tidyverse  
+
+The tidyverse is an opinionated collection of R packages designed for data science. All packages share an underlying design philosophy, grammar, and data structures.   
+
+https://www.tidyverse.org/  
+
+Install from CRAN   
+
+
+```r
+install.packages('tidyverse')
+```
+
+Ideally suited for:  
+
++ Reading in data  
++ Manipulating and tidying data  
++ Visualisation of results  
+
+---
+background-image: url('img/tidyverse.png')   
+background-position: 90% 4%   
+background-size: 100px  
+
+# tidyverse demo  
+
+This example shows some more advanced use of data manipulation and visualisation. 
+
+From the  [Tidy Tuesday Project](https://github.com/rfordatascience/tidytuesday)
+
+### Space launches
+These are the data behind the "space launches" article, The space race is dominated by new contenders. Principal data came from the Jonathan McDowell's JSR Launch Vehicle Database, available online at http://www.planet4589.org/space/lvdb/index.html.
+
+
+*Example adapted from from https://github.com/dgrtwo/data-screencasts/blob/master/space-launches.Rmd*  
+
+---
+
+# Reading in data  
+
+
+```r
+library(tidyverse)
+
+launches &lt;- read_csv("https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2019/2019-01-15/launches.csv")
+
+head(launches)
+```
+
+```
+## # A tibble: 6 x 11
+##   tag            JD launch_date launch_year type          variant mission              agency state_code category agency_type
+##   &lt;chr&gt;       &lt;dbl&gt; &lt;date&gt;            &lt;dbl&gt; &lt;chr&gt;         &lt;chr&gt;   &lt;chr&gt;                &lt;chr&gt;  &lt;chr&gt;      &lt;chr&gt;    &lt;chr&gt;      
+## 1 1967-065 2439671. 1967-06-29         1967 Thor Burner 2 &lt;NA&gt;    Secor Type II S/N 10 US     US         O        state      
+## 2 1967-080 2439726. 1967-08-23         1967 Thor Burner 2 &lt;NA&gt;    DAPP 3419            US     US         O        state      
+## 3 1967-096 2439775. 1967-10-11         1967 Thor Burner 2 &lt;NA&gt;    DAPP 4417            US     US         O        state      
+## 4 1968-042 2440000. 1968-05-23         1968 Thor Burner 2 &lt;NA&gt;    DAPP 5420            US     US         O        state      
+## 5 1968-092 2440153. 1968-10-23         1968 Thor Burner 2 &lt;NA&gt;    DAPP 6422            US     US         O        state      
+## 6 1969-062 2440426. 1969-07-23         1969 Thor Burner 2 &lt;NA&gt;    DAPP 7421            US     US         O        state
+```
+
+---
+
+# Pre-processing  
+
+
+```r
+launches_processed &lt;- launches %&gt;%
+  filter(launch_date &lt;= Sys.Date()) %&gt;%
+  filter(state_code == "US") %&gt;%
+  add_count(type) %&gt;%
+  filter(n &gt;= 20) %&gt;%
+  mutate(type = fct_reorder(type, launch_date, min),
+         agency_type = str_to_title(agency_type))
+```
+
++ Use of the pipe `%&gt;%` operator improved readability with collaborators  
++ Ability to filter, aggregate, select columns, reorder, text manipulation  
++ Supports Non-Standard Evaluation (NSE)  
+
+---
+
+# Data Visualisation
+
+.left-code[
+
+```r
+ ggplot(data = launches_processed,
+        aes(x = launch_date, 
+            y = type)) +
+  geom_point()
+```
+]
+
+.right-plot[
+![](index_files/figure-html/plot-code-1.png)
+]
+
+---
+
+# Data Visualisation
+
+.left-code[
+
+```r
+  ggplot(launches_processed, 
+        aes(x = launch_date, 
+            y = type)) +
+   geom_jitter(alpha = .25, 
+               width = 0, 
+               height = .2) 
+```
+]
+
+.right-plot[
+![](index_files/figure-html/plot-code2-1.png)
+]
+
+
+---
+
+# Data Visualisation
+
+.left-code[
+
+```r
+  ggplot(data = launches_processed, 
+        aes(x = launch_date, 
+            y = type,
+            color = agency_type)) +
+   geom_jitter(alpha = .25, 
+               width = 0, 
+               height = .2) +
+  theme(legend.position = "bottom")
+```
+]
+
+.right-plot[
+![](index_files/figure-html/plot-code3-1.png)
+]
+
+---
+
+# Data Visualisation
+
+.left-code[
+
+```r
+  ggplot(launches_processed, 
+        aes(x = launch_date, 
+            y = type,
+            color = agency_type)) +
+   geom_jitter(alpha = .25, 
+               width = 0, 
+               height = .2) +
+  labs(title = "Timeline of US space vehicles",
+       x = "Launch date",
+       y = "Vehicle type",
+       color = "Agency type",
+       subtitle = "Only vehicles with at least 20 launches") +
+  theme_light() +
+  theme(legend.position = "bottom") 
+```
+]
+
+.right-plot[
+![](index_files/figure-html/plot-code4-1.png)
+]
+
+---
+class: inverse, center, middle
+
+# Working with others 
+
+Version control and collaboration
+
+---
+
+# Git  / Github  
+
++ Powerful version control system used in software development  
+
++ Also well suited to managing research work  
+
++ Controls the 'source code' of your work with multiple contributors   
+
+![source: https://www.atlassian.com/git/tutorials](img/git.svg)
+
+---
+
+# Use cases for git in science  
+
+1. Lab notebook  
+2. Facilitating Collaboration  
+3. Backup and Failsafe against data loss  
+4. Freedom to explore new ideas and methods  
+5. Mechanism to solicit feedback and reviews  
+6. Increase transparency and verifiability  
+7. Managing large data
+8. Lowering barriers to reuse
+
+
+Ram, K. (2013). Git can facilitate greater reproducibility and increased transparency in science. Source Code for Biology and Medicine, 8(1). https://doi.org/10.1186/1751-0473-8-7
+
+---
+
+# Lots of great git resources:  
+
+[Git for Scientists - Miles McBain](https://milesmcbain.github.io/git_4_sci/)
+
+[Atlassian Git Tutorials](https://www.atlassian.com/git/tutorials)
+
+[Git: A powerful tool to facilitate greater reproducibility and transparency in science](https://github.com/karthik/smb_git)  
+
+[Git and Github - R Packages](http://r-pkgs.had.co.nz/git.html)
+
+[A Quick Introduction to Version Control with Git and GitHub](https://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1004668)
+
+
+---
+class: inverse, center, middle
+
+# Getting your work out there
+
+Papers, Talks, Posters, Blogs and more
+
+---
+background-image: url('img/rmarkdown.png')   
+background-position: 90% 4%   
+background-size: 100px 
+
+# R Markdown  
+
+&gt; R Markdown provides an authoring framework for data science. You can use a single R Markdown file to both
+&gt; + save and execute code  
+&gt; + generate high quality reports that can be shared with an audience
+
+source: https://rmarkdown.rstudio.com/
+
+
+![https://rmarkdown.rstudio.com/lesson-1.html](img/rmd.png)
+
+---
+background-image: url('img/rmarkdown.png')   
+background-position: 90% 4%   
+background-size: 100px 
+
+# R Markdown Gallery
+
+https://rmarkdown.rstudio.com/gallery.html
+
+---
+background-image: url('img/shiny.png')   
+background-position: 90% 4%   
+background-size: 100px  
+
+# Shiny  
+
+Shiny is a framework to build interactive web apps straight from
+your R code.  
+
++ Get your code into users' hands
++ Easily deploy and host apps on the cloud  
++ Turn your research outputs into useful production ready tools
+
+https://shiny.rstudio.com/
+
+[Shiny User Showcase](https://www.rstudio.com/products/shiny/shiny-user-showcase/)
+
+---
+background-image: url('img/shiny.png')   
+background-position: 90% 4%   
+background-size: 100px  
+
+# Shiny Demo  
+
+https://deanmarchiori.shinyapps.io/abtester/
+
+![ABTesteR](img/abtest.png)
+
+---
+
+# R Packages  
+
+&gt; In R, the fundamental unit of shareable code is the package. A package bundles together code, data, documentation, and tests, and is easy to share with others
+
+source: [R Packages - Hadley Wickham](http://r-pkgs.had.co.nz/intro.html)
+
+### Why R Packages?  
+
++ Amplify your research work by turning it into open-source software  
++ Publish and licence your software to the community  
++ Ensure it can be run and maintained by others and not trapped on the 'C Drive'  
+
+[ROpenSci](https://ropensci.org/) has a great model for promoting open data and
+software for science.  
+
+---
+
+# References  
+
+Adam H Sparks, Mark Padgham, Hugh Parsonage and Keith Pembleton (2017). bomrang: Fetch Australian Government Bureau of
+  Meteorology Weather Data The Journal of Open Source Software, 2(17). DOI: 10.21105/joss.00411
+
+Adam H Sparks, Jonathan Carroll, Dean Marchiori, Mark Padgham, Hugh Parsonage and Keith Pembleton. (2018). bomrang: Australian
+  government Bureau of Meteorology (BOM) data from R. R package version 0.4.0. https://CRAN.R-project.org/package=bomrang
+  
+Amelia McNamara, Eduardo Arino de la Rubia, Hao Zhu, Shannon Ellis and Michael Quinn (2019). skimr: Compact and Flexible
+  Summaries of Data. R package version 1.0.6. https://github.com/ropenscilabs/skimr
+  
+Hadley Wickham (2017). tidyverse: Easily Install and Load the 'Tidyverse'. R package version 1.2.1.
+  https://CRAN.R-project.org/package=tidyverse
+  
+JJ Allaire and Yihui Xie and Jonathan McPherson and Javier Luraschi and Kevin Ushey and Aron Atkins and Hadley Wickham and Joe
+  Cheng and Winston Chang and Richard Iannone (2018). rmarkdown: Dynamic Documents for R. R package version 1.11. URL
+  https://rmarkdown.rstudio.com.
+  
+---
+
+# References (cont.)
+
+Yihui Xie and J.J. Allaire and Garrett Grolemund (2018). R Markdown: The Definitive Guide. Chapman and Hall/CRC. ISBN
+  9781138359338. URL https://bookdown.org/yihui/rmarkdown.  
+  
+Winston Chang, Joe Cheng, JJ Allaire, Yihui Xie and Jonathan McPherson (2018). shiny: Web Application Framework for R. R package
+  version 1.2.0. https://CRAN.R-project.org/package=shiny
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();</script>
+
+<script>
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+</script>
+
+<script>
+(function() {
+  var i, text, code, codes = document.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+})();
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
