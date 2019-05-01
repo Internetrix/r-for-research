@@ -4,6 +4,7 @@
     <title>R for Research</title>
     <meta charset="utf-8">
     <meta name="author" content="Dean Marchiori" />
+    <meta name="author" content="dean.marchiori@internetrix.com.au" />
     <link href="libs/remark-css-0.0.1/default.css" rel="stylesheet" />
     <link href="libs/remark-css-0.0.1/default-fonts.css" rel="stylesheet" />
   </head>
@@ -14,7 +15,7 @@ class: center, middle, inverse, title-slide
 # R for Research
 ## Essential Tools for Researchers
 ### Dean Marchiori
-### 2019/04/30 (updated: 2019-04-30)
+### <a href="mailto:dean.marchiori@internetrix.com.au">dean.marchiori@internetrix.com.au</a>
 
 ---
 
@@ -46,6 +47,22 @@ pre {
                                     font-size: 70%;
 }
 
+.inverse {
+  background-color: #132734;
+  color: #d6d6d6;
+  text-shadow: 0 0 20px #333;
+}
+
+.title-slide {
+  background-color: #132734;
+  color: #d6d6d6;
+  text-shadow: 0 0 20px #333;
+  class: inverse, center, middle;
+  background-image: url('img/logo.png');  
+  background-position: 5% 98%;  
+  background-size: 150px ;
+}
+
 &lt;/style&gt;
 
 # Key principles
@@ -54,25 +71,57 @@ pre {
 
 ---
 class: inverse, center, middle
+background-image: url('img/logo.png')  
+background-position: 5% 98%  
+background-size: 150px  
 
-# Tool Box
+# Why R?
 
 ---
-background-image: url("img/R.png")
+background-image: url('img/R.png')  
+background-position: 90% 8%  
+background-size: 100px  
 
-# R?
+
+# R
 
 The R programming language is a popular and open-source tool for data analysis and
-statistical computing.  
+statistical computing.    
 
 https://www.r-project.org/  
 
++ Can handle data import, cleaning, analysis, visualisation and publishing  
++ Highly extensible  
++ Open Source  
++ GREAT community and documentation  
+
+&lt;img src="img/ieee.jpeg" style="width: 40%" align="center"&gt;
+
+*https://spectrum.ieee.org/at-work/innovation/the-2018-top-programming-languages*
+
 ---
 class: inverse, center, middle
+background-image: url('img/logo.png')  
+background-position: 5% 98%  
+background-size: 150px  
 
 # Getting Data   
 
 R packages to get data and access API's
+
+---
+
+# Web Technologies  
+
+R has a detailed task view of packages build to interface with the web.  
+
++ HTTP Requests  
++ XML / JSON  
++ Web Scraping  
++ Cloud Data Tools (AWS, BigQuery, ..)  
++ Social Media Clients
+
+https://cran.r-project.org/web/views/WebTechnologies.html
 
 ---
 
@@ -107,55 +156,50 @@ Get current forecast for Alice Springs
 ```r
 library(bomrang)
 library(dplyr)
-```
 
-```
-## 
-## Attaching package: 'dplyr'
-```
-
-```
-## The following objects are masked from 'package:stats':
-## 
-##     filter, lag
-```
-
-```
-## The following objects are masked from 'package:base':
-## 
-##     intersect, setdiff, setequal, union
-```
-
-```r
-weather &lt;- bomrang::get_precis_forecast(state = "NT") 
+weather &lt;- bomrang::get_current_weather(station_name = 'Bellambi')
 
 weather %&gt;% 
-  filter(town == "Alice Springs") %&gt;% 
-  select(index, town, precis) 
+  filter(local_date_time_full == max(local_date_time_full)) %&gt;% 
+  select(full_name, local_date_time_full, air_temp, wind_dir, wind_spd_kt) 
 ```
 
 ```
-##   index          town           precis
-## 1     0 Alice Springs Possible shower.
-## 2     1 Alice Springs    Mostly sunny.
-## 3     2 Alice Springs   Partly cloudy.
-## 4     3 Alice Springs   Partly cloudy.
-## 5     4 Alice Springs           Sunny.
-## 6     5 Alice Springs           Sunny.
-## 7     6 Alice Springs           Sunny.
-## 8     7 Alice Springs           Sunny.
+##   full_name local_date_time_full air_temp wind_dir wind_spd_kt
+## 1  Bellambi  2019-05-01 14:30:00     21.5       NE          16
 ```
-
 
 ---
 
+background-image: url('img/bomrang.png')  
+background-position: 90% 8%  
+background-size: 100px  
+
+# bomrang demo
+
+Get radar imagery  
+
+
+```r
+library(bomrang)
+
+imagery &lt;- get_radar_imagery(product_id = "IDR032", path = 'img/radar.png') 
+```
+
+&lt;img src="img/radar.png" style="width: 40%" align="middle"&gt;
+
+
+---
 class: inverse, center, middle  
+background-image: url('img/logo.png')  
+background-position: 5% 98%  
+background-size: 150px  
+
 
 # Analysing Data  
 faster and more interpretable EDA    
 
 ---
-
 
 background-image: url('img/skimr.png')   
 background-position: 90% 6%   
@@ -189,20 +233,7 @@ background-size: 100px
 
 ```r
 library(skimr)
-```
 
-```
-## 
-## Attaching package: 'skimr'
-```
-
-```
-## The following object is masked from 'package:stats':
-## 
-##     filter
-```
-
-```r
 skimr::skim(iris)
 ```
 
@@ -400,6 +431,9 @@ launches_processed &lt;- launches %&gt;%
 
 ---
 class: inverse, center, middle
+background-image: url('img/logo.png')  
+background-position: 5% 98%  
+background-size: 150px  
 
 # Working with others 
 
@@ -423,7 +457,7 @@ Version control and collaboration
 
 1. Lab notebook  
 2. Facilitating Collaboration  
-3. Backup and Failsafe against data loss  
+3. Backup and Fail-safe against data loss  
 4. Freedom to explore new ideas and methods  
 5. Mechanism to solicit feedback and reviews  
 6. Increase transparency and verifiability  
@@ -450,6 +484,9 @@ Ram, K. (2013). Git can facilitate greater reproducibility and increased transpa
 
 ---
 class: inverse, center, middle
+background-image: url('img/logo.png')  
+background-position: 5% 98%  
+background-size: 150px  
 
 # Getting your work out there
 
@@ -550,11 +587,21 @@ JJ Allaire and Yihui Xie and Jonathan McPherson and Javier Luraschi and Kevin Us
 
 # References (cont.)
 
-Yihui Xie and J.J. Allaire and Garrett Grolemund (2018). R Markdown: The Definitive Guide. Chapman and Hall/CRC. ISBN
-  9781138359338. URL https://bookdown.org/yihui/rmarkdown.  
+Yihui Xie and J.J. Allaire and Garrett Grolemund (2018). R Markdown: The Definitive Guide. Chapman and Hall/CRC. ISBN 9781138359338. URL https://bookdown.org/yihui/rmarkdown.  
   
 Winston Chang, Joe Cheng, JJ Allaire, Yihui Xie and Jonathan McPherson (2018). shiny: Web Application Framework for R. R package
   version 1.2.0. https://CRAN.R-project.org/package=shiny
+
+
+---
+class: inverse, center, middle
+background-image: url('img/logo.png')  
+background-position: 5% 98%  
+background-size: 150px  
+
+# Thanks!
+
+Fire some questions at me
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>

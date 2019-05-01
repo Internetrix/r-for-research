@@ -1,8 +1,9 @@
 ---
 title: "R for Research"
 subtitle: "Essential Tools for Researchers"
-author: "Dean Marchiori"
-date: "2019/04/30 (updated: `r Sys.Date()`)"
+author: 
+  - Dean Marchiori
+  - dean.marchiori@internetrix.com.au
 output:
   xaringan::moon_reader:
     lib_dir: libs
@@ -41,6 +42,22 @@ pre {
                                     font-size: 70%;
 }
 
+.inverse {
+  background-color: #132734;
+  color: #d6d6d6;
+  text-shadow: 0 0 20px #333;
+}
+
+.title-slide {
+  background-color: #132734;
+  color: #d6d6d6;
+  text-shadow: 0 0 20px #333;
+  class: inverse, center, middle;
+  background-image: url('img/logo.png');  
+  background-position: 5% 98%;  
+  background-size: 150px ;
+}
+
 ```
 
 # Key principles
@@ -49,25 +66,57 @@ pre {
 
 ---
 class: inverse, center, middle
+background-image: url('img/logo.png')  
+background-position: 5% 98%  
+background-size: 150px  
 
-# Tool Box
+# Why R?
 
 ---
-background-image: url("img/R.png")
+background-image: url('img/R.png')  
+background-position: 90% 8%  
+background-size: 100px  
 
-# R?
+
+# R
 
 The R programming language is a popular and open-source tool for data analysis and
-statistical computing.  
+statistical computing.    
 
 https://www.r-project.org/  
 
++ Can handle data import, cleaning, analysis, visualisation and publishing  
++ Highly extensible  
++ Open Source  
++ GREAT community and documentation  
+
+<img src="img/ieee.jpeg" style="width: 40%" align="center">
+
+*https://spectrum.ieee.org/at-work/innovation/the-2018-top-programming-languages*
+
 ---
 class: inverse, center, middle
+background-image: url('img/logo.png')  
+background-position: 5% 98%  
+background-size: 150px  
 
 # Getting Data   
 
 R packages to get data and access API's
+
+---
+
+# Web Technologies  
+
+R has a detailed task view of packages build to interface with the web.  
+
++ HTTP Requests  
++ XML / JSON  
++ Web Scraping  
++ Cloud Data Tools (AWS, BigQuery, ..)  
++ Social Media Clients
+
+https://cran.r-project.org/web/views/WebTechnologies.html
 
 ---
 
@@ -97,27 +146,47 @@ background-size: 100px
 
 Get current forecast for Alice Springs
 
-```{r echo=TRUE}
+```{r echo=TRUE, message=FALSE, warning=FALSE}
 library(bomrang)
 library(dplyr)
 
-weather <- bomrang::get_precis_forecast(state = "NT") 
+weather <- bomrang::get_current_weather(station_name = 'Bellambi')
 
 weather %>% 
-  filter(town == "Alice Springs") %>% 
-  select(index, town, precis) 
+  filter(local_date_time_full == max(local_date_time_full)) %>% 
+  select(full_name, local_date_time_full, air_temp, wind_dir, wind_spd_kt) 
 ```
-
 
 ---
 
+background-image: url('img/bomrang.png')  
+background-position: 90% 8%  
+background-size: 100px  
+
+# bomrang demo
+
+Get radar imagery  
+
+```{r echo=TRUE, message=FALSE, warning=FALSE}
+library(bomrang)
+
+imagery <- get_radar_imagery(product_id = "IDR032", path = 'img/radar.png') 
+```
+
+<img src="img/radar.png" style="width: 40%" align="middle">
+
+
+---
 class: inverse, center, middle  
+background-image: url('img/logo.png')  
+background-position: 5% 98%  
+background-size: 150px  
+
 
 # Analysing Data  
 faster and more interpretable EDA    
 
 ---
-
 
 background-image: url('img/skimr.png')   
 background-position: 90% 6%   
@@ -149,7 +218,7 @@ options(width = 250)
 ```
 
 
-```{r fig.height=6, fig.width=6}
+```{r fig.height=6, fig.width=6, message=FALSE, warning=FALSE}
 library(skimr)
 
 skimr::skim(iris)
@@ -313,6 +382,9 @@ launches_processed <- launches %>%
 
 ---
 class: inverse, center, middle
+background-image: url('img/logo.png')  
+background-position: 5% 98%  
+background-size: 150px  
 
 # Working with others 
 
@@ -336,7 +408,7 @@ Version control and collaboration
 
 1. Lab notebook  
 2. Facilitating Collaboration  
-3. Backup and Failsafe against data loss  
+3. Backup and Fail-safe against data loss  
 4. Freedom to explore new ideas and methods  
 5. Mechanism to solicit feedback and reviews  
 6. Increase transparency and verifiability  
@@ -363,6 +435,9 @@ Ram, K. (2013). Git can facilitate greater reproducibility and increased transpa
 
 ---
 class: inverse, center, middle
+background-image: url('img/logo.png')  
+background-position: 5% 98%  
+background-size: 150px  
 
 # Getting your work out there
 
@@ -463,12 +538,19 @@ JJ Allaire and Yihui Xie and Jonathan McPherson and Javier Luraschi and Kevin Us
 
 # References (cont.)
 
-Yihui Xie and J.J. Allaire and Garrett Grolemund (2018). R Markdown: The Definitive Guide. Chapman and Hall/CRC. ISBN
-  9781138359338. URL https://bookdown.org/yihui/rmarkdown.  
+Yihui Xie and J.J. Allaire and Garrett Grolemund (2018). R Markdown: The Definitive Guide. Chapman and Hall/CRC. ISBN 9781138359338. URL https://bookdown.org/yihui/rmarkdown.  
   
 Winston Chang, Joe Cheng, JJ Allaire, Yihui Xie and Jonathan McPherson (2018). shiny: Web Application Framework for R. R package
   version 1.2.0. https://CRAN.R-project.org/package=shiny
 
 
+---
+class: inverse, center, middle
+background-image: url('img/logo.png')  
+background-position: 5% 98%  
+background-size: 150px  
 
+# Thanks!
+
+Fire some questions at me
 
