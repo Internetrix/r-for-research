@@ -145,7 +145,7 @@ background-size: 100px
 
 # bomrang demo   
 
-Get current forecast for Alice Springs
+Get current forecast for Wollongong
 
 ```{r echo=TRUE, message=FALSE, warning=FALSE}
 library(bomrang)
