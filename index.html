@@ -167,7 +167,7 @@ weather %&gt;%
 
 ```
 ##   full_name local_date_time_full air_temp wind_dir wind_spd_kt
-## 1  Bellambi  2019-05-03 11:30:00     19.8        N           6
+## 1  Bellambi  2019-05-03 12:00:00     19.4        N          10
 ```
 
 ---
@@ -341,12 +341,6 @@ launches_processed &lt;- launches %&gt;%
          agency_type = str_to_title(agency_type))
 ```
 
----
-# Modelling and Analysis
-
-Traditionally a huge strength in R.
-
-*example*
 
 ---
 background-image: url('img/ggplot2.jpg')   
@@ -477,6 +471,59 @@ the `gganimate` package can make animated visualisations easy by extending
 the `ggplot2` API.
 
 &lt;img src="img/anim.gif" width="400" /&gt;
+
+---
+# Modelling and Analysis
+
+Traditionally a huge strength in R.
+
++ Linear models like `lm` and generalised linear models (`glm`)
++ Non-parametric models decision trees (`rpart`), and random forest (`rf`)  
++ Common API for modelling, traditionally a formula interface (below)  
++ Packages like `caret` attempt to standardise API for modelling,
+tuning hyper-parameters and cross-validation across hundreds of models.  
+
+
+```r
+fit &lt;- caret::train(label ~ x + y, 
+                    data = training, 
+                    method = "rf")
+```
+
+
+---
+# Modelling and Analysis
+
+
+```r
+# fitting a linear model with the iris dataset.
+fit &lt;- lm(formula = Sepal.Width ~ Petal.Length + Petal.Width, data = iris)
+
+summary(fit)
+```
+
+```
+## 
+## Call:
+## lm(formula = Sepal.Width ~ Petal.Length + Petal.Width, data = iris)
+## 
+## Residuals:
+##      Min       1Q   Median       3Q      Max 
+## -1.06198 -0.23389  0.01982  0.20580  1.13488 
+## 
+## Coefficients:
+##              Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)   3.58705    0.09373  38.272  &lt; 2e-16 ***
+## Petal.Length -0.25714    0.06691  -3.843  0.00018 ***
+## Petal.Width   0.36404    0.15496   2.349  0.02014 *  
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 0.3893 on 147 degrees of freedom
+## Multiple R-squared:  0.2131,	Adjusted R-squared:  0.2024 
+## F-statistic:  19.9 on 2 and 147 DF,  p-value: 2.238e-08
+```
+
 
 ---
 class: inverse, center, middle

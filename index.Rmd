@@ -296,12 +296,6 @@ launches_processed <- launches %>%
          agency_type = str_to_title(agency_type))
 ```
 
----
-# Modelling and Analysis
-
-Traditionally a huge strength in R.
-
-*example*
 
 ---
 background-image: url('img/ggplot2.jpg')   
@@ -429,6 +423,35 @@ the `ggplot2` API.
 ```{r echo=FALSE, out.width=400}
 knitr::include_graphics('img/anim.gif')
 ```
+
+---
+# Modelling and Analysis
+
+Traditionally a huge strength in R.
+
++ Linear models like `lm` and generalised linear models (`glm`)
++ Non-parametric models decision trees (`rpart`), and random forest (`rf`)  
++ Common API for modelling, traditionally a formula interface (below)  
++ Packages like `caret` attempt to standardise API for modelling,
+tuning hyper-parameters and cross-validation across hundreds of models.  
+
+```{r eval=FALSE, include=TRUE}
+fit <- caret::train(label ~ x + y, 
+                    data = training, 
+                    method = "rf")
+```
+
+
+---
+# Modelling and Analysis
+
+```{r}
+# fitting a linear model with the iris dataset.
+fit <- lm(formula = Sepal.Width ~ Petal.Length + Petal.Width, data = iris)
+
+summary(fit)
+```
+
 
 ---
 class: inverse, center, middle
