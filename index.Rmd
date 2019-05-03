@@ -86,8 +86,9 @@ statistical computing.
 https://www.r-project.org/  
 
 + Can handle data import, cleaning, analysis, visualisation and publishing  
-+ Highly extensible  
++ Highly extensible through package ecosystem - new algos available faster   
 + Open Source  
++ Easy to learn from a non-CS background
 + GREAT community and documentation  
 
 <img src="img/ieee.jpeg" style="width: 40%" align="center">
@@ -513,6 +514,16 @@ source: [R Packages - Hadley Wickham](http://r-pkgs.had.co.nz/intro.html)
 
 [ROpenSci](https://ropensci.org/) has a great model for promoting open data and
 software for science.  
+
+---
+
+# R Packages  
+
+```{r echo=FALSE, out.width=600}
+knitr::include_graphics('img/pkg.png')
+```
+
+source: https://blog.revolutionanalytics.com/2017/01/cran-10000.html
 
 ---
 
