@@ -167,7 +167,7 @@ weather %&gt;%
 
 ```
 ##   full_name local_date_time_full air_temp wind_dir wind_spd_kt
-## 1  Bellambi  2019-05-03 10:30:00     20.5      NNE          11
+## 1  Bellambi  2019-05-03 11:30:00     19.8        N           6
 ```
 
 ---
@@ -265,6 +265,12 @@ background-size: 100px
 
 The tidyverse is an opinionated collection of R packages designed for data science. All packages share an underlying design philosophy, grammar, and data structures.   
 
+Ideally suited for:  
+
++ Reading in data  
++ Manipulating and tidying data  
++ Visualisation of results  
+
 https://www.tidyverse.org/  
 
 Install from CRAN   
@@ -273,12 +279,6 @@ Install from CRAN
 ```r
 install.packages('tidyverse')
 ```
-
-Ideally suited for:  
-
-+ Reading in data  
-+ Manipulating and tidying data  
-+ Visualisation of results  
 
 ---
 background-image: url('img/tidyverse.png')   
@@ -289,13 +289,13 @@ background-size: 100px
 
 This example shows some more advanced use of data manipulation and visualisation. 
 
-From the  [Tidy Tuesday Project](https://github.com/rfordatascience/tidytuesday)
-
 ### Space launches
 These are the data behind the "space launches" article, The space race is dominated by new contenders. Principal data came from the Jonathan McDowell's JSR Launch Vehicle Database, available online at http://www.planet4589.org/space/lvdb/index.html.
 
 
 *Example adapted from from https://github.com/dgrtwo/data-screencasts/blob/master/space-launches.Rmd*  
+
+*and the  [Tidy Tuesday Project](https://github.com/rfordatascience/tidytuesday)*
 
 ---
 
@@ -324,7 +324,11 @@ head(launches)
 
 ---
 
-# Pre-processing  
+# Pre-processing   
+
++ Use of the pipe `%&gt;%` operator improved readability with collaborators  
++ Ability to filter, aggregate, select columns, reorder, text manipulation  
++ Supports Non-Standard Evaluation (NSE)  
 
 
 ```r
@@ -337,11 +341,34 @@ launches_processed &lt;- launches %&gt;%
          agency_type = str_to_title(agency_type))
 ```
 
-+ Use of the pipe `%&gt;%` operator improved readability with collaborators  
-+ Ability to filter, aggregate, select columns, reorder, text manipulation  
-+ Supports Non-Standard Evaluation (NSE)  
+---
+# Modelling and Analysis
+
+Traditionally a huge strength in R.
+
+*example*
 
 ---
+background-image: url('img/ggplot2.jpg')   
+background-position: 90% 4%   
+background-size: 100px 
+
+# Data Visualisation with ggplot2  
+
+`ggplot2` is a well known package for data visualisation based on [The Grammar of
+Graphics](http://amzn.to/2ef1eWp).  
+
+
+```r
+install.packages('ggplot2')
+```
+
+Let's run through an example..  
+
+---
+background-image: url('img/ggplot2.jpg')   
+background-position: 90% 4%   
+background-size: 100px 
 
 # Data Visualisation
 
@@ -360,6 +387,9 @@ launches_processed &lt;- launches %&gt;%
 ]
 
 ---
+background-image: url('img/ggplot2.jpg')   
+background-position: 90% 4%   
+background-size: 100px 
 
 # Data Visualisation
 
@@ -381,6 +411,9 @@ launches_processed &lt;- launches %&gt;%
 
 
 ---
+background-image: url('img/ggplot2.jpg')   
+background-position: 90% 4%   
+background-size: 100px 
 
 # Data Visualisation
 
@@ -403,6 +436,9 @@ launches_processed &lt;- launches %&gt;%
 ]
 
 ---
+background-image: url('img/ggplot2.jpg')   
+background-position: 90% 4%   
+background-size: 100px 
 
 # Data Visualisation
 
@@ -429,6 +465,18 @@ launches_processed &lt;- launches %&gt;%
 .right-plot[
 ![](index_files/figure-html/plot-code4-1.png)
 ]
+
+---
+background-image: url('img/gganimate.png)      
+background-position: 90% 4%    
+background-size: 100px  
+
+# Animated Visualisations  
+
+the `gganimate` package can make animated visualisations easy by extending
+the `ggplot2` API.
+
+&lt;img src="img/anim.gif" width="400" /&gt;
 
 ---
 class: inverse, center, middle
@@ -599,8 +647,11 @@ JJ Allaire and Yihui Xie and Jonathan McPherson and Javier Luraschi and Kevin Us
 Yihui Xie and J.J. Allaire and Garrett Grolemund (2018). R Markdown: The Definitive Guide. Chapman and Hall/CRC. ISBN 9781138359338. URL https://bookdown.org/yihui/rmarkdown.  
   
 Winston Chang, Joe Cheng, JJ Allaire, Yihui Xie and Jonathan McPherson (2018). shiny: Web Application Framework for R. R package
-  version 1.2.0. https://CRAN.R-project.org/package=shiny
+  version 1.2.0. https://CRAN.R-project.org/package=shiny  
+  
+H. Wickham. ggplot2: Elegant Graphics for Data Analysis. Springer-Verlag New York, 2016.
 
+Thomas Lin Pedersen and David Robinson (2019). gganimate: A Grammar of Animated Graphics. R package version 1.0.3. https://CRAN.R-project.org/package=gganimate
 
 ---
 class: inverse, center, middle
