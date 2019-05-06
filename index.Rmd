@@ -429,27 +429,79 @@ knitr::include_graphics('img/anim.gif')
 
 Traditionally a huge strength in R.
 
-+ Linear models like `lm` and generalised linear models (`glm`)
-+ Non-parametric models decision trees (`rpart`), and random forest (`rf`)  
-+ Common API for modelling, traditionally a formula interface (below)  
-+ Packages like `caret` attempt to standardise API for modelling,
-tuning hyper-parameters and cross-validation across hundreds of models.  
++ Wide range of linear models, glm, decision trees, machine learning models.
+
+```{r echo=TRUE}
+fit <- lm(formula = Sepal.Width ~ Petal.Length + Petal.Width, data = iris)
+```
+
+Commonly used formula interface:
+
+`Sepal.Width ~ Petal.Length + Petal.Width`  
+
+---
+# Modelling and Analysis  
+
+```{r}
+summary(fit)
+```
+
+---
+# Modelling and Analysis    
+
+Good support for machine learning, model tuning, cross-validation.  
+
+The `caret` package (short for Classification And REgression Training) is a set of functions that attempt to streamline the process for creating predictive models.
 
 ```{r eval=FALSE, include=TRUE}
-fit <- caret::train(label ~ x + y, 
-                    data = training, 
-                    method = "rf")
+install.packages('caret')
+```
+
+---
+# Modelling and Analysis 
+
+```{r echo=FALSE, out.width= 600}
+knitr::include_graphics('img/caret1.png')
+```
+
+---
+# Logistic Regression 
+
+```{r eval=FALSE, include=TRUE}
+fit_glm <- caret::train(label ~ x + y, 
+                        data = training, 
+                        method = "glm")
 ```
 
 
+```{r echo=FALSE, out.width= 600}
+knitr::include_graphics('img/caret2.png')
+```
+
 ---
-# Modelling and Analysis
+# CART Decision Tree  
 
-```{r}
-# fitting a linear model with the iris dataset.
-fit <- lm(formula = Sepal.Width ~ Petal.Length + Petal.Width, data = iris)
+```{r eval=FALSE, include=TRUE}
+fit_rpart <- caret::train(label ~ x + y, 
+                          data = training, 
+                          method = "rpart")
+```
 
-summary(fit)
+```{r echo=FALSE, out.width= 600}
+knitr::include_graphics('img/caret3.png')
+```
+
+---
+# Random Forest
+
+```{r eval=FALSE, include=TRUE}
+fit_rf <- caret::train(label ~ x + y, 
+                       data = training, 
+                       method = "rf")
+```
+
+```{r echo=FALSE, out.width= 600}
+knitr::include_graphics('img/caret4.png')
 ```
 
 
@@ -628,7 +680,11 @@ Winston Chang, Joe Cheng, JJ Allaire, Yihui Xie and Jonathan McPherson (2018). s
   
 H. Wickham. ggplot2: Elegant Graphics for Data Analysis. Springer-Verlag New York, 2016.
 
-Thomas Lin Pedersen and David Robinson (2019). gganimate: A Grammar of Animated Graphics. R package version 1.0.3. https://CRAN.R-project.org/package=gganimate
+Thomas Lin Pedersen and David Robinson (2019). gganimate: A Grammar of Animated Graphics. R package version 1.0.3. https://CRAN.R-project.org/package=gganimate  
+
+Max Kuhn. Contributions from Jed Wing, Steve Weston, Andre Williams, Chris Keefer, Allan Engelhardt, Tony Cooper, Zachary Mayer, Brenton
+Kenkel, the R Core Team, Michael Benesty, Reynald Lescarbeau, Andrew Ziem, Luca Scrucca, Yuan Tang, Can Candan and Tyler Hunt. (2019).
+caret: Classification and Regression Training. R package version 6.0-84. https://CRAN.R-project.org/package=caret
 
 ---
 class: inverse, center, middle
